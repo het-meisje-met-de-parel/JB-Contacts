@@ -1,6 +1,5 @@
 package contacts;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class Man  extends Contact{

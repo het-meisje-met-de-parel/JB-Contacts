@@ -57,8 +57,8 @@ public abstract class Contact {
 
         String number = getValue(Field.NUMBER.field);
         sb.append(Field.NUMBER.text).append(": ").append(number).append("\n");
-        sb.append("Time created: ").append(created).append("\n");
-        sb.append("Time last edit: ").append(edited).append("\n");
+        sb.append("Time created: ").append(getCreated()).append("\n");
+        sb.append("Time last edit: ").append(getEdited()).append("\n");
         return sb.toString();
     }
 
@@ -78,50 +78,40 @@ public abstract class Contact {
         String[] groups;
         if (!(number.contains(" ") || number.contains("-"))) {
             if (!number.matches("[0-9a-zA-Z()+]+")) {
-                System.err.println("!!!!!");
                 return false;
             }
             if (number.contains("+") && number.charAt(0) != '+') {
-                System.err.println("!!!!!");
                 return false;
             }
             return true;
         } else {
             groups = number.split("[ -]");
             if (groups[0].contains("+") && groups[0].charAt(0) != '+') {
-                System.err.println("1 !!!!!");
                 return false;
             }
             if ((groups[0].contains("(") && groups[0].contains(")"))
                     && (groups[1].contains("(") && groups[1].contains(")"))) {
-                System.err.println("2 !!!!!");
                 return false;
             }
             for (int i = 0; i < groups.length; i++) {
                 if (groups[i].length() < 2 && i != 0) {
-                    System.err.println("3 !!!!!");
                     return false;
                 }
                 if (!groups[i].matches("[0-9a-zA-Z()+]+")) {
-                    System.err.println("4 !!!!! " + groups[i]);
                     return false;
                 }
                 if (!groups[i].matches("(\\([0-9a-zA-Z+]+\\)|[0-9a-zA-Z+]+)")) {
-                    System.err.println("43 !!!!! " + groups[i]);
                     return false;
                 }
                 if (groups[i].contains("+") && i != 0) {
-                    System.err.println("5 !!!!!");
                     return false;
                 }
                 if (groups[i].contains("(") && groups[i].contains(")")
                         && (i != 0 && i != 1)) {
-                    System.err.println("6 !!!!!");
                     return false;
                 }
                 if ((groups[i].contains("(") && !groups[i].contains(")"))
                 || (!groups[i].contains("(") && groups[i].contains(")"))) {
-                    System.err.println("7 !!!!!");
                     return false;
                 }
             }
